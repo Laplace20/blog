@@ -28,7 +28,7 @@ model User {
   role      Role     @default(USER)
   image     String?
   createdAt DateTime @default(now())
-  Project   Project[]
+  project   Project[]
 
 }
 
@@ -39,7 +39,7 @@ model Project {
   description String  @db.Text
   content     String? @db.Text 
   user        User @relation(fields: [userID], references: [id])
-  userID      String      
+  userID      String     
 
   status ProjectStatus @default(ONGOING)
 
@@ -51,6 +51,5 @@ model Project {
   isFeatured Boolean  @default(false)
   createdAt  DateTime @default(now())
 
-  
 }
 
