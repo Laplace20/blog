@@ -1,0 +1,56 @@
+
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum ProjectStatus {
+  ONGOING 
+  COMPLETED 
+  ARCHIVED 
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String 
+  role      Role     @default(USER)
+  image     String?
+  createdAt DateTime @default(now())
+  Project   Project[]
+
+}
+
+model Project {
+  id          String  @id @default(cuid())
+  title       String
+  slug        String  @unique
+  description String  @db.Text
+  content     String? @db.Text 
+  user        User @relation(fields: [userID], references: [id])
+  userID      String      
+
+  status ProjectStatus @default(ONGOING)
+
+  link      String? 
+  github    String? 
+  image     String? 
+  techStack String[] 
+
+  isFeatured Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  
+}
+
