@@ -3,7 +3,7 @@ import { PrismaClient } from '../app/generated/prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 const bcrypt = require('bcryptjs')
 import 'dotenv/config'
-import { createUserWithProjects } from './projectSeed';
+
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,

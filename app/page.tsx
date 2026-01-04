@@ -1,19 +1,26 @@
-import prisma from '@/lib/prisma'
+'use client';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import AppTheme from '../shared-theme/AppTheme';
+import AppAppBar from './components/AppAppBar';
+import MainContent from './components/MainContent';
+import Latest from './components/Latest';
+import Footer from './components/Footer';
 
-export default async function Home() {
-  const users = await prisma.user.findMany();
+export default function Blog(props: any) {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center -mt-16">
-      <h1 className="text-4xl font-bold mb-8 font-[family-name:var(--font-geist-sans)] text-[#333333]">
-        Superblog
-      </h1>
-      <ol className="list-decimal list-inside font-[family-name:var(--font-geist-sans)]">
-        {users.map((user) => (
-          <li key={user.id} className="mb-2">
-            {user.name}
-          </li>
-        ))}
-      </ol>
-    </div>
+    <AppTheme {...props}>
+      <CssBaseline enableColorScheme />
+      <AppAppBar />
+      <Container
+        maxWidth="lg"
+        component="main"
+        sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
+      >
+        <MainContent />
+        <Latest />
+      </Container>
+      <Footer />
+    </AppTheme>
   );
 }
